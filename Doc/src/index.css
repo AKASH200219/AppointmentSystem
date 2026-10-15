@@ -1,0 +1,127 @@
+@import "bootstrap/dist/css/bootstrap.min.css";
+
+/* Antigravity Design Tokens & Animations */
+:root {
+  --primary-color: #1e3a8a;
+  --primary-gradient: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
+  --accent-gradient: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background-color: #f8fafc;
+  color: #1e293b;
+  -webkit-font-smoothing: antialiased;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.hover-lift {
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08) !important;
+}
+
+@keyframes spinKeyframes {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.spin {
+  animation: spinKeyframes 1s linear infinite;
+}
+
+.bg-white-10 {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.hover-bg-danger:hover {
+  background-color: #dc3545 !important;
+  color: #ffffff !important;
+}
+
+.text-white-hover:hover {
+  color: #ffffff !important;
+}
+
+.fs-7 {
+  font-size: 0.85rem;
+}
+
+.fs-8 {
+  font-size: 0.75rem;
+}
+
+.nav-pills .nav-link.active {
+  background: var(--accent-gradient) !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.nav-pills .nav-link {
+  color: #64748b;
+  transition: all 0.2s ease;
+}
+
+.nav-pills .nav-link:hover:not(.active) {
+  background-color: #e2e8f0;
+  color: #0f172a;
+}
+
+/* Custom Navbar Styles */
+.nav-link-custom {
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  color: rgba(255, 255, 255, 0.82) !important;
+}
+
+.nav-link-custom:hover {
+  color: #ffffff !important;
+  background-color: rgba(255, 255, 255, 0.12);
+  transform: translateY(-1px);
+}
+
+.nav-link-custom.active-nav-item {
+  background-color: #ffffff !important;
+  color: #1e3a8a !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  font-weight: 600;
+}
+
+.custom-nav-dropdown .dropdown-menu {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  border-radius: 12px;
+  overflow: hidden;
+  padding: 6px;
+  margin-top: 8px;
+}
+
+.custom-nav-dropdown .dropdown-item {
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-size: 0.92rem;
+  font-weight: 500;
+  transition: all 0.15s ease;
+}
+
+.custom-nav-dropdown .dropdown-item:hover {
+  background-color: rgba(59, 130, 246, 0.1);
+  color: #1e3a8a;
+  transform: translateX(4px);
+}
+
+.navbar-glass {
+  background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #1d4ed8 100%);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.15);
+}
+
