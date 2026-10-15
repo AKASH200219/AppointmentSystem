@@ -1,7 +1,7 @@
 import express from "express";
 
 import upload from "../middleware/multer.js";
-import { addMedicine, deleteMedicine, getAllMedicines, getAllOrders, getMedicineById, getUserOrders, orderMedicine, prescriptionByorder, updateMedicine, updateOrderStatus,getPrescriptionFile } from "../controller/medicineController.js";
+import { addMedicine, deleteMedicine, getAllMedicines, getAllOrders, getMedicineById, getUserOrders, orderMedicine, prescriptionByorder, updateMedicine, updateOrderStatus,getPrescriptionFile } from "../controller/MedicineController.js";
 
 const medicineRouter = express.Router();
 
