@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import {Button,Card,Col,Container,Form,Row} from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import API from "../../api/axiosConfig";
 
 function Login() {
   const [name, setName] = useState("");
@@ -29,7 +30,8 @@ function Login() {
     };
 
     try {
-      const result = await axios.post("http://localhost:5000/api/addLogin/login",body);
+      // const result = await axios.post("http://localhost:5000/api/addLogin/login",body);
+     const result= API.post("/api/addLogin/login", body);
 
       localStorage.setItem("token", result.data.token);
 
@@ -62,9 +64,11 @@ function Login() {
 
   const getKey = async () => {
     try {
-      const result = await axios.get(
-        "http://localhost:5000/api/addLogin/getkey"
-      );
+      // const result = await axios.get(
+      //   "http://localhost:5000/api/addLogin/getkey"
+      // );
+      const result= API.post("/api/addLogin/getkey");
+
 
       console.log(result.data.key);
     } catch (err) {
