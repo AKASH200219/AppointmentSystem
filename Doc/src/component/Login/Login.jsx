@@ -31,7 +31,7 @@ function Login() {
 
     try {
       // const result = await axios.post("http://localhost:5000/api/addLogin/login",body);
-     const result= API.post("/api/addLogin/login", body);
+     const result= await API.post("/api/addLogin/login", body);
 
       localStorage.setItem("token", result.data.token);
 
@@ -67,7 +67,7 @@ function Login() {
       // const result = await axios.get(
       //   "http://localhost:5000/api/addLogin/getkey"
       // );
-      const result= API.post("/api/addLogin/getkey");
+      const result= await API.post("/api/addLogin/getkey");
 
 
       console.log(result.data.key);
