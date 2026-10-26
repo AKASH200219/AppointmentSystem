@@ -40,24 +40,50 @@ mongoose
 const server = express();
 const httpServer = http.createServer(server);
 
+const allowedOrigins = [
+  "http://localhost:5173",
+  process.env.FRONTEND_URL,
+].filter(Boolean);
+
 // Create Socket.IO server
+// const io = new Server(httpServer, {
+//   cors: {
+//     //origin: "http://localhost:5173",
+//     origin: [
+//       "http://localhost:5173",
+//       process.env.FRONTEND_URL,
+//     ],
+//     methods: ["GET", "POST", "PUT", "DELETE"],
+//   },
+// });
+
 const io = new Server(httpServer, {
   cors: {
-    origin: "http://localhost:5173",
+    origin: allowedOrigins,
     methods: ["GET", "POST", "PUT", "DELETE"],
   },
 });
+
+// server.use(express.json());
+
+// server.use(
+//   cors({
+//     origin: [
+//       "http://localhost:5173",
+//       process.env.FRONTEND_URL,
+//     ],
+//   })
+// );
 
 server.use(express.json());
 
 server.use(
   cors({
-    origin: [
-      "http://localhost:5173",
-      process.env.FRONTEND_URL,
-    ],
+    origin: allowedOrigins,
+    methods: ["GET", "POST", "PUT", "DELETE"],
   })
 );
+
 // Socket connection
 io.on("connection", (socket) => {
 
