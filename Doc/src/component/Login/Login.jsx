@@ -62,24 +62,6 @@ function Login() {
     }
   };
 
-  const getKey = async () => {
-    try {
-      // const result = await axios.get(
-      //   "http://localhost:5000/api/addLogin/getkey"
-      // );
-      const result= await API.get("/api/addLogin/getkey");
-
-
-      console.log(result.data.key);
-    } catch (err) {
-      console.log("Can't get key", err);
-    }
-  };
-
-  useEffect(() => {
-    getKey();
-  }, []);
-
   return (
     <Container fluid className="min-vh-100 d-flex align-items-center justify-content-center">
       <Row className="justify-content-center w-100">
