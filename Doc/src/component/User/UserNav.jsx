@@ -258,7 +258,12 @@ function UserNav() {
                   height="30"
                   className="rounded-circle me-2 border border-2 border-white shadow-sm"
                   style={{ objectFit: "cover", flexShrink: 0 }}
-                  onError={() => setImgError(true)}
+                  onLoad={(e) => {
+                  console.log("Profile image loaded:", e.currentTarget.src);
+                  }}
+                  onError={(e) =>{
+                     console.log("Profile image failed:", e.currentTarget.src);
+                    setImgError(true)}}
                 />
               ) : (
                 <FaUserCircle className="fs-4 me-2 text-light" />
