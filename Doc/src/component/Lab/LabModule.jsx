@@ -108,7 +108,7 @@ function LabModule() {
 
     if (queryLabId || localStorage.getItem("lab")) return;
 
-    axios.get(`${API}/all-labs`)
+    API.get("/api/lab/all-labs")
 
       .then((res) => {
 
@@ -147,13 +147,13 @@ function LabModule() {
     try {
 
       // const labRes = await axios.get(`${API}/labs/${labId}`);
-      const labRes = await API.get(`/labs/${labId}`);
+      const labRes = await API.get(`/api/lab/labs/${labId}`);
 
       // const bookingRes = await axios.get(`${API}/requests/${labId}`);
-      const bookingRes = await API.get(`/requests/${labId}`);
+      const bookingRes = await API.get(`/api/lab/requests/${labId}`);
 
       // const statsRes = await axios.get(`${API}/stats`, {
-      const statsRes = await API.get(`/stats`, {
+      const statsRes = await API.get(`/api/lab/stats`, {
 
         params: { labId }
 
@@ -254,11 +254,11 @@ function LabModule() {
 
       if (editingTestId) {
 
-        res = await API.put(`/update-test/${editingTestId}`, data);
+        res = await API.put(`/api/lab/update-test/${editingTestId}`, data);
 
       } else {
 
-        res = await axios.post(`${API}/add-test`, data);
+        res = await API.post(`/api/lab/add-test`, data);
 
       }
 
@@ -291,7 +291,7 @@ function LabModule() {
 
     try {
 
-      const res = await axios.patch(`${API}/status-test/${id}`);
+      const res = await API.patch(`/api/lab/status-test/${id}`);
 
       if (!res.data.success) {
 
@@ -317,10 +317,8 @@ function LabModule() {
 
     try {
 
-      const res = await axios.delete(
-
-        `${API}/delete-test/${test._id}`
-
+      const res = await API.delete(
+        `/api/lab/delete-test/${test._id}`
       );
 
       if (!res.data.success) {
@@ -367,7 +365,7 @@ function LabModule() {
 
       }
 
-      const res = await axios.post(`${API}/staff/add`, data);
+      const res = await API.post(`/api/lab/staff/add`, data);
 
       if (!res.data.success) {
 
@@ -417,7 +415,7 @@ function LabModule() {
 
     try {
 
-      const res = await axios.delete(`${API}/staff/${member._id}`);
+      const res = await API.delete(`/api/lab/staff/${member._id}`);
 
       if (!res.data.success) {
 
@@ -441,7 +439,7 @@ function LabModule() {
 
     try {
 
-      const res = await axios.patch(`${API}/status/${id}`, { status });
+      const res = await API.patch(`/api/lab/status/${id}`, { status });
 
       if (!res.data.success) {
 
@@ -507,10 +505,8 @@ function LabModule() {
 
       }
 
-      const res = await axios.post(
-
-        `${API}/report/${reportBooking._id}`, data
-
+      const res = await API.post(
+        `/api/lab/report/${reportBooking._id}`, data
       );
 
       if (!res.data.success) {

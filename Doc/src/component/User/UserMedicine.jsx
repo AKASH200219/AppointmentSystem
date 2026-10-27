@@ -42,7 +42,7 @@ function UserMedicine() {
 
   const fetchMedicines = async () => {
     try {
-      const result = await axios.get("http://localhost:5000/api/medicine/get");
+      const result = await API.get("/api/medicine/get");
       setMedicines(result.data.medicines || []);
     } catch (error) {
       console.log("Error fetching medicines:", error);
@@ -51,7 +51,7 @@ function UserMedicine() {
 
   const fetchOrders = async () => {
     try {
-      const result = await axios.get(`http://localhost:5000/api/medicine/user-orders/${userId}`);
+      const result = await API.get(`/api/medicine/user-orders/${userId}`);
 
       setOrders(result.data.orders || []);
     } catch (error) {
@@ -61,7 +61,7 @@ function UserMedicine() {
 
   const fetchUser = async () => {
     try {
-      const result = await axios.get(`http://localhost:5000/api/usernav/userinfo/${userId}`);
+      const result = await API.get(`/api/usernav/userinfo/${userId}`);
 
       const user = result.data.result;
 

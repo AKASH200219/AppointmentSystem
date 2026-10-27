@@ -1,5 +1,8 @@
 import { io } from "socket.io-client";
 
-const socket = io("http://localhost:5000");
+const socket = io(API_BASE_URL, {
+  autoConnect: true,
+  transports: ["websocket", "polling"],
+});
 
 export default socket;

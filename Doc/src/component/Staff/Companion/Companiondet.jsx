@@ -77,7 +77,7 @@ function CompanionDet() {
   const companionDetails = async () => {
     try {
       // const result = await axios.get( `${API}/companioncare/${companionId}`);
-      const result = await API.get( `/companioncare/${companionId}`);
+      const result = await API.get(`/api/companion/companioncare/${companionId}`);
 
       setCompanions(result.data?.companions || []);
 
@@ -166,7 +166,7 @@ function CompanionDet() {
       }
 
       // await axios.put(`${API}/updateStatus/${item._id}`,updateData);
-      await API.put(`/updateStatus/${item._id}`,updateData);
+      await API.put(`/api/companion/updateStatus/${item._id}`, updateData);
 
       await companionDetails();
     } catch (error) {
@@ -303,7 +303,7 @@ function CompanionDet() {
 
         try {
           // await axios.put(`${API}/updateStatus/${requestId}`,
-          await API.put(`/updateStatus/${requestId}`,
+          await API.put(`/api/companion/updateStatus/${requestId}`,
             {
               companionLatitude: lat,
               companionLongitude: lng,
@@ -370,7 +370,7 @@ function CompanionDet() {
       }
 
       // await axios.put(`${API}/updateStatus/${selectedCompanion._id}`,updateData);
-      await API.put(`/updateStatus/${selectedCompanion._id}`,updateData);
+      await API.put(`/api/companion/updateStatus/${selectedCompanion._id}`, updateData);
 
       setSelectedCompanion((previous) =>
         previous
