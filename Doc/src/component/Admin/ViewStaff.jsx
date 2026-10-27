@@ -4,6 +4,7 @@ import AdminNav from "./AdminNav";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { FaPlus } from "react-icons/fa";
+import API from "../../api/axiosConfig";
 
 
 function ViewStaff() {
@@ -15,7 +16,8 @@ function ViewStaff() {
 
     try {
 
-      const result = await axios.get( "http://localhost:5000/api/staff/viewStaff");
+      // const result = await axios.get( "http://localhost:5000/api/staff/viewStaff");
+      const result = await API.get( "/api/staff/viewStaff");
       console.log("Staff:", result.data);
 
       setViewStaff(result.data.result);
@@ -28,7 +30,6 @@ function ViewStaff() {
     }
 
   };
-
 
   const deleteStaff = async (staffid) => {
 
@@ -44,7 +45,8 @@ function ViewStaff() {
 
       }
 
-      const result = await axios.delete(`http://localhost:5000/api/staff/deleteStaff/${staffid}`);
+      // const result = await axios.delete(`http://localhost:5000/api/staff/deleteStaff/${staffid}`);
+      const result = await API.delete(`/api/staff/deleteStaff/${staffid}`);
 
       alert(result.data.message);
       viewStaff();
@@ -139,7 +141,8 @@ function ViewStaff() {
                     <td>{staff.image ? (
 
                         <Image
-                          src={`http://localhost:5000/uploads/${staff.image}`}
+                          // src={`http://localhost:5000/uploads/${staff.image}`}
+                          src={`${API.defaults.baseURL}/uploads/${staff.image}`}
                           roundedCircle
                           width="60"
                           height="60"

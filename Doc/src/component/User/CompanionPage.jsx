@@ -4,6 +4,7 @@ import companion from "/src/assets/companion.jpg";
 import UserNav from "./UserNav";
 import axios from "axios";
 import socket from "../../socket";
+import API from "../../api/axiosConfig";
 
 function CompanionPage() {
   const [service, setService] = useState("");
@@ -103,7 +104,8 @@ function CompanionPage() {
         longitude,
       };
 
-      const result = await axios.post("http://localhost:5000/api/companion/addCompanion", body);
+      // const result = await axios.post("http://localhost:5000/api/companion/addCompanion", body);
+      const result = await API.post("/api/companion/addCompanion", body);
       console.log("Companion request successful:", result);
       setSuccessMsg("Companion care request submitted successfully!");
       setService("");

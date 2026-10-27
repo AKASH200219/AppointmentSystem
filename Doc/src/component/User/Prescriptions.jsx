@@ -1,9 +1,9 @@
-
 import React, { useEffect, useState } from "react";
 import {Badge,Button,Card,Col,Container,Modal,Row,Table,} from "react-bootstrap";
 import axios from "axios";
 import jsPDF from "jspdf";
 import UserNav from "./UserNav";
+import API from "../../api/axiosConfig";
 
 const groupPrescriptions = (items) => {
   const grouped = new Map();
@@ -46,7 +46,8 @@ function Prescriptions() {
 
   const getPrescriptions = async () => {
     try {
-      const res = await axios.get(`http://localhost:5000/api/prescriptions/user/${userId}` );
+      // const res = await axios.get(`http://localhost:5000/api/prescriptions/user/${userId}` );
+      const res = await API.get(`/api/prescriptions/user/${userId}` );
 
       console.log("Prescriptions:", res.data);
 
@@ -410,7 +411,8 @@ const handleDownloadPrescription = (prescription) => {
                           {item.doctorId?.image ? (
 
                             <img
-                              src={`http://localhost:5000/uploads/${item.doctorId.image}`}
+                              // src={`http://localhost:5000/uploads/${item.doctorId.image}`}
+                              src={`${API.defaults.baseURL}/uploads/${item.doctorId.image}`}
                               alt="Doctor"
                               className="rounded-circle me-2"
                               style={{
@@ -579,7 +581,8 @@ const handleDownloadPrescription = (prescription) => {
                     ?.image && (
 
                     <img
-                      src={`http://localhost:5000/uploads/${selectedPrescription.doctorId.image}`}
+                      // src={`http://localhost:5000/uploads/${selectedPrescription.doctorId.image}`}
+                      src={`${API.defaults.baseURL}/uploads/${selectedPrescription.doctorId.image}`}
                       alt="Doctor"
                       className="rounded-circle me-3"
                       style={{

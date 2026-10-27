@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import {Card,Col,Container,Row,Table,Badge,} from "react-bootstrap";
 import DoctorNav from "./DoctorNav";
 import axios from "axios";
+import API from "../../api/axiosConfig";
 
 function DocDashboard() {
   const Doctorid = localStorage.getItem("doctor");
@@ -12,7 +13,8 @@ function DocDashboard() {
 
   const Appointments = async () => {
     try {
-      const result = await axios.get(`http://localhost:5000/api/appointments/getDetails/${Doctorid}`);
+      // const result = await axios.get(`http://localhost:5000/api/appointments/getDetails/${Doctorid}`);
+      const result = await API.get(`/api/appointments/getDetails/${Doctorid}`);
 
       console.log("Appointments:", result.data);
 

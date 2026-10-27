@@ -4,6 +4,7 @@ import AdminNav from "./AdminNav";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import {FaUserMd,FaSearch,FaPlus,FaEdit,FaTrash,FaEye,FaClock,FaHospital,FaGraduationCap,FaRupeeSign,FaPhoneAlt,FaEnvelope,FaMapMarkerAlt,FaCalendarAlt,} from "react-icons/fa";
+import API from "../../api/axiosConfig";
 
 function ViewDoctor() {
   const [doctors, setDoctors] = useState([]);
@@ -18,7 +19,8 @@ function ViewDoctor() {
   const fetchDoctors = async () => {
     try {
       setLoading(true);
-      const res = await axios.get("http://localhost:5000/api/admin/viewDoctors");
+      // const res = await axios.get("http://localhost:5000/api/admin/viewDoctors");
+      const res = await API.get("/api/admin/viewDoctors");
       console.log("Doctors fetched:", res.data);
       if (res.data?.result) {
         setDoctors(res.data.result);
@@ -37,7 +39,8 @@ function ViewDoctor() {
     if (!confirmDelete) return;
 
     try {
-      const res = await axios.delete(`http://localhost:5000/api/admin/deleteDoctor/${doctorId}`);
+      // const res = await axios.delete(`http://localhost:5000/api/admin/deleteDoctor/${doctorId}`);
+      const res = await API.delete(`/api/admin/deleteDoctor/${doctorId}`);
       alert(res.data?.message || "Doctor deleted successfully");
       fetchDoctors();
     } catch (err) {
@@ -195,7 +198,8 @@ function ViewDoctor() {
                           <Image
                             src={
                               doc.image
-                                ? `http://localhost:5000/uploads/${doc.image}`
+                                // ? `http://localhost:5000/uploads/${doc.image}`
+                                ? `${API.defaults.baseURL}/uploads/${doc.image}`
                                 : "https://via.placeholder.com/60"
                             }
                             roundedCircle
@@ -339,7 +343,7 @@ function ViewDoctor() {
                 <Image
                   src={
                     selectedDoctor.image
-                      ? `http://localhost:5000/uploads/${selectedDoctor.image}`
+                      ? `${API.defaults.baseURL}/uploads/${selectedDoctor.image}`
                       : "https://via.placeholder.com/150"
                   }
                   roundedCircle

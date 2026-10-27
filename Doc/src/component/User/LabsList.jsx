@@ -25,6 +25,7 @@ import {
   FaShieldAlt,
 } from "react-icons/fa";
 import axios from "axios";
+import API from "../../api/axiosConfig";
 
 function LabsList() {
   const [labs, setLabs] = useState([]);
@@ -39,7 +40,8 @@ function LabsList() {
 
   const fetchLabs = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/lab/all-labs");
+      // const res = await axios.get("http://localhost:5000/api/lab/all-labs");
+      const res = await API.get("/api/lab/all-labs");
       if (res.data?.success) {
         setLabs(res.data.result || []);
       }
@@ -171,7 +173,8 @@ function LabsList() {
                       <div className="d-flex gap-3 align-items-start mb-3">
                         {lab.image ? (
                           <img
-                            src={`http://localhost:5000/uploads/${lab.image}`}
+                            // src={`http://localhost:5000/uploads/${lab.image}`}
+                            src={`${API.defaults.baseURL}/uploads/${lab.image}`}
                             alt={lab.name}
                             width="75"
                             height="75"

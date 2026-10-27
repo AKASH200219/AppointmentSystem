@@ -1,18 +1,11 @@
-
 import { useCallback, useEffect, useState } from "react";
-import {
-  Alert,
-  Button,
-  Card,
-  Container,
-  Form,
-  Table,
-} from "react-bootstrap";
+import {Alert,Button,Card,Container,Form,Table,} from "react-bootstrap";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import AdminNav from "./AdminNav";
+import API from "../../api/axiosConfig";
 
-const API_URL = "http://localhost:5000";
+// const API_URL = "http://localhost:5000";
 
 function TokenMangement() {
   const navigate = useNavigate();
@@ -38,8 +31,8 @@ function TokenMangement() {
     setError("");
 
     try {
-      const response = await axios.get(
-        `${API_URL}/api/token/all/${month}`,
+      // const response = await axios.get(`${API_URL}/api/token/all/${month}`,
+      const response = await API.get(`/api/token/all/${month}`,
         {
           headers: {
             Authorization: `Bearer ${
@@ -88,8 +81,8 @@ function TokenMangement() {
     setSaving(true);
 
     try {
-      const response = await axios.post(
-        `${API_URL}/api/token/addtoken`,
+      const response = await API.post(
+        `/api/token/addtoken`,
         {
           month,
           token: tokenLimit,

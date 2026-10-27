@@ -3,6 +3,7 @@ import { Button, Card, Col, Container, Form, Row, } from "react-bootstrap";
 import UserNav from "./UserNav";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import API from "../../api/axiosConfig";
 
 function BookAppointment() {
 
@@ -26,7 +27,8 @@ function BookAppointment() {
 
       console.log("Doctor ID:", doctorId);
 
-      const result = await axios.get(`http://localhost:5000/api/booking/doctorBooking/${doctorId}`);
+      // const result = await axios.get(`http://localhost:5000/api/booking/doctorBooking/${doctorId}`);
+      const result = await API.get(`/api/booking/doctorBooking/${doctorId}`);
 
       console.log("Doctor info:", result.data);
 
@@ -40,7 +42,8 @@ function BookAppointment() {
   const getToken = async () => {
     try {
 
-      const result = await axios.get(`http://localhost:5000/api/token/gettoken/${doctorId}`)
+      // const result = await axios.get(`http://localhost:5000/api/token/gettoken/${doctorId}`)
+      const result = await API.get(`/api/token/gettoken/${doctorId}`)
       console.log("Token info:", result.data);
       setSelectedToken(result.data.tokenData || []);
     }
@@ -74,7 +77,8 @@ function BookAppointment() {
       console.log("Appointment data:", body);
 
 
-      const result = await axios.post(`http://localhost:5000/api/book/bookToken/${doctorId}`, body);
+      // const result = await axios.post(`http://localhost:5000/api/book/bookToken/${doctorId}`, body);
+      const result = await API.post(`/api/book/bookToken/${doctorId}`, body);
 
       console.log("Booking result:", result.data);
 
@@ -146,7 +150,8 @@ function BookAppointment() {
                 <Col lg={4} className="bg-light p-4 text-center">
 
                   <img
-                    src={`http://localhost:5000/uploads/${docInfo.image}`}
+                    // src={`http://localhost:5000/uploads/${docInfo.image}`}
+                     src={`${API.defaults.baseURL}/uploads/${docInfo.image}`}
                     alt="Doctor"
                     className="img-fluid rounded-4 shadow"
                     style={{

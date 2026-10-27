@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import {Card,Container,Table,Badge,} from "react-bootstrap";
 import axios from "axios";
 import UserNav from "./UserNav";
+import API from "../../api/axiosConfig";
 
 function BookedEquipmentStatus() {
 
@@ -14,7 +15,8 @@ function BookedEquipmentStatus() {
 
     try {
 
-      const result = await axios.get(`http://localhost:5000/api/equipment/equipmentbookedstatus/${userId}`);
+      // const result = await axios.get(`http://localhost:5000/api/equipment/equipmentbookedstatus/${userId}`);
+      const result = await API.get(`/api/equipment/equipmentbookedstatus/${userId}`);
       console.log("My Bookings:", result.data);
 
       setBookings(result.data.bookings || []);
@@ -103,7 +105,8 @@ function BookedEquipmentStatus() {
                         <td>
 
                           <img
-                            src={`http://localhost:5000/uploads/${item.image}`}
+                            // src={`http://localhost:5000/uploads/${item.image}`}
+                             src={`${API.defaults.baseURL}/uploads/${item.image}`}
                             alt={item.equipmentName}
                             style={{
                               width: "80px",

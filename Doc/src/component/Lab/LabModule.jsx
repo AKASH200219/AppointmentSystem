@@ -4,8 +4,9 @@ import { useLocation, Link } from "react-router-dom";
 import axios from "axios";
 import {FaFlask, FaPlus, FaEdit, FaTrash, FaFileMedical, FaArrowLeft} from "react-icons/fa";
 import LabNav from "../Doctor/DoctorNav";
+import API from "../../api/axiosConfig";
 
-const API = "http://localhost:5000/api/lab";
+// const API = "http://localhost:5000/api/lab";
 
 const statuses = [
 
@@ -145,11 +146,14 @@ function LabModule() {
 
     try {
 
-      const labRes = await axios.get(`${API}/labs/${labId}`);
+      // const labRes = await axios.get(`${API}/labs/${labId}`);
+      const labRes = await API.get(`/labs/${labId}`);
 
-      const bookingRes = await axios.get(`${API}/requests/${labId}`);
+      // const bookingRes = await axios.get(`${API}/requests/${labId}`);
+      const bookingRes = await API.get(`/requests/${labId}`);
 
-      const statsRes = await axios.get(`${API}/stats`, {
+      // const statsRes = await axios.get(`${API}/stats`, {
+      const statsRes = await API.get(`/stats`, {
 
         params: { labId }
 
@@ -250,11 +254,7 @@ function LabModule() {
 
       if (editingTestId) {
 
-        res = await axios.put(
-
-          `${API}/update-test/${editingTestId}`, data
-
-        );
+        res = await API.put(`/update-test/${editingTestId}`, data);
 
       } else {
 
@@ -649,7 +649,8 @@ function LabModule() {
 
                   <img
 
-                    src={`http://localhost:5000/uploads/${lab.image}`}
+                    // src={`http://localhost:5000/uploads/${lab.image}`}
+                    src={`${API.defaults.baseURL}/uploads/${lab.image}`}
 
                     alt={lab.name}
 

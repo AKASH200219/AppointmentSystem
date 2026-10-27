@@ -24,6 +24,7 @@ import {
 } from "react-icons/fa";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import API from "../../api/axiosConfig";
 
 function LabReports() {
   const userId = localStorage.getItem("user");
@@ -44,7 +45,8 @@ function LabReports() {
 
     try {
       setLoading(true);
-      const res = await axios.get(`http://localhost:5000/api/lab/user/${userId}`);
+      // const res = await axios.get(`http://localhost:5000/api/lab/user/${userId}`);
+      const res = await API.get(`/api/lab/user/${userId}`);
       if (res.data?.success) {
         setReports(res.data.result || []);
       }
@@ -229,7 +231,8 @@ function LabReports() {
                             </Button>
                           ) : item.attachmentFile ? (
                             <a
-                              href={`http://localhost:5000/uploads/${item.attachmentFile}`}
+                              // href={`http://localhost:5000/uploads/${item.attachmentFile}`}
+                              href={`${API.defaults.baseURL}/uploads/${item.attachmentFile}`}
                               target="_blank"
                               rel="noreferrer"
                               className="btn btn-sm btn-outline-secondary rounded-pill px-3 py-1 d-inline-flex align-items-center gap-1"
@@ -315,7 +318,8 @@ function LabReports() {
                     Download or open the certified pathology PDF/Image report stamped by the lab.
                   </p>
                   <a
-                    href={`http://localhost:5000/uploads/${selectedReport.reportFile}`}
+                    // href={`http://localhost:5000/uploads/${selectedReport.reportFile}`}
+                    href={`${API.defaults.baseURL}/uploads/${selectedReport.reportFile}`}
                     target="_blank"
                     rel="noreferrer"
                     className="btn btn-primary rounded-pill px-4 py-2 d-inline-flex align-items-center gap-2 fw-semibold"

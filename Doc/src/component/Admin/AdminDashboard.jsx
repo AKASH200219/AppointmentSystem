@@ -5,6 +5,7 @@ import axios from "axios";
 import AdminNav from "./AdminNav";
 
 import {FaUsers,FaUserMd,FaUserNurse,FaCalendarCheck,FaPills,FaHandHoldingHeart,FaTools,FaSync,FaFlask} from "react-icons/fa";
+import API from "../../api/axiosConfig";
 
 function AdminDashboard() {
   const navigate = useNavigate();
@@ -29,7 +30,8 @@ function AdminDashboard() {
     try {
       setLoading(true);
 
-      const res = await axios.get("http://localhost:5000/api/admin/dashboard");
+      // const res = await axios.get("http://localhost:5000/api/admin/dashboard");
+      const res = await API.get("/api/admin/dashboard");
       console.log(res);
       
       if (res.data.success) {

@@ -9,6 +9,7 @@ import {
   FaSignOutAlt,
 } from "react-icons/fa";
 import axios from "axios";
+import API from "../../api/axiosConfig";
 
 function DoctorNav() {
   const navigate = useNavigate();
@@ -19,8 +20,8 @@ function DoctorNav() {
 
   useEffect(() => {
     if (doctorId) {
-      axios
-        .get(`http://localhost:5000/api/admin/doctorinfo/${doctorId}`)
+      // axios.get(`http://localhost:5000/api/admin/doctorinfo/${doctorId}`)
+      API.get(`/api/admin/doctorinfo/${doctorId}`)
         .then((res) => setDoctorinfo(res.data.result || {}))
         .catch((err) => console.log(err));
     }
@@ -111,7 +112,8 @@ function DoctorNav() {
             >
               {doctorinfo.image ? (
                 <img
-                  src={`http://localhost:5000/uploads/${doctorinfo.image}`}
+                  // src={`http://localhost:5000/uploads/${doctorinfo.image}`}
+                   src={`${API.defaults.baseURL}/uploads/${doctorinfo.image}`}
                   alt="Doctor"
                   width="25"
                   height="25"

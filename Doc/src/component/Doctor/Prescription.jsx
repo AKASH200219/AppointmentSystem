@@ -3,6 +3,7 @@ import {Button,Card,Col,Container,Form,Row,Table,Alert,} from "react-bootstrap";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import DoctorNav from "./DoctorNav";
+import API from "../../api/axiosConfig";
 
 function Prescription() {
   const { appointmentId } = useParams();
@@ -23,8 +24,8 @@ function Prescription() {
  
   const getAppointment = async () => {
     try {
-      const result = await axios.get(`http://localhost:5000/api/appointments/detailsAppointment/${appointmentId}`);
-
+      // const result = await axios.get(`http://localhost:5000/api/appointments/detailsAppointment/${appointmentId}`);
+      const result = await API.get(`/api/appointments/detailsAppointment/${appointmentId}`);
       setAppointment(result.data.appointmentDetails);
     } catch (error) {
       console.log("Failed to get appointment:", error);
@@ -131,7 +132,8 @@ function Prescription() {
         medicines: medicinesToSave,
       };
 
-      const result = await axios.post("http://localhost:5000/api/prescriptions/add",prescriptionData);
+      // const result = await axios.post("http://localhost:5000/api/prescriptions/add",prescriptionData);
+      const result = await API.post("/api/prescriptions/add",prescriptionData);
 
       console.log("Prescription saved:", result.data);
 

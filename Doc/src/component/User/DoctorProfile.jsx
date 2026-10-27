@@ -3,6 +3,7 @@ import { Badge, Button, Card, Col, Container, Row } from "react-bootstrap";
 import axios from "axios";
 import { Link, useParams } from "react-router-dom";
 import UserNav from "./UserNav";
+import API from "../../api/axiosConfig";
 
 function DoctorProfile() {
   const { doctorId } = useParams();
@@ -13,9 +14,11 @@ function DoctorProfile() {
   useEffect(() => {
     const loadDoctor = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/booking/doctorBooking/${doctorId}`);
+        // const response = await axios.get(`http://localhost:5000/api/booking/doctorBooking/${doctorId}`);
+        const response = await API.get(`/api/booking/doctorBooking/${doctorId}`);
         setDoctor(response.data.doctorData);
-        const tokenResponse = await axios.get(`http://localhost:5000/api/token/gettoken/${doctorId}`);
+        // const tokenResponse = await axios.get(`http://localhost:5000/api/token/gettoken/${doctorId}`);
+        const tokenResponse = await API.get(`/api/token/gettoken/${doctorId}`);
         setSchedules(tokenResponse.data.tokenData || []);
       } catch (requestError) {
         console.error("Failed to load doctor profile:", requestError);
@@ -43,7 +46,8 @@ function DoctorProfile() {
               <Row className="align-items-center g-4">
                 <Col lg={4} className="text-center">
                   <img
-                    src={`http://localhost:5000/uploads/${doctor.image}`}
+                    // src={`http://localhost:5000/uploads/${doctor.image}`}
+                    src={`${API.defaults.baseURL}/uploads/${doctor.image}`}
                     alt={`Dr. ${doctor.name}`}
                     className="img-fluid rounded-4 shadow"
                     style={{ width: "100%", maxWidth: "320px", height: "360px", objectFit: "cover" }}

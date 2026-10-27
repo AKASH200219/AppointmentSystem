@@ -16,6 +16,7 @@ import {
   FaUserCircle,
   FaFlask
 } from "react-icons/fa";
+import API from "../../api/axiosConfig";
 
 function UserNav() {
   const [userinfo, setUserinfo] = useState({});
@@ -27,8 +28,8 @@ function UserNav() {
 
   useEffect(() => {
     if (!userid) return;
-    axios
-      .get(`http://localhost:5000/api/usernav/userinfo/${userid}`)
+    // axios.get(`http://localhost:5000/api/usernav/userinfo/${userid}`)
+     API.get(`/api/usernav/userinfo/${userid}`)
       .then((result) => {
         if (result.data?.result) {
           setUserinfo(result.data.result);
@@ -258,7 +259,8 @@ function UserNav() {
             <div className="d-flex align-items-center bg-white-10 px-3 py-1-5 rounded-pill border border-white-10 text-white me-xl-2 my-1 my-xl-0">
               {userinfo?.image && !imgError ? (
                 <img
-                  src={`http://localhost:5000/uploads/${userinfo.image}`}
+                  // src={`http://localhost:5000/uploads/${userinfo.image}`}
+                  src={`${API.defaults.baseURL}/uploads/${userinfo.image}`}
                   alt="Profile"
                   width="34"
                   height="34"

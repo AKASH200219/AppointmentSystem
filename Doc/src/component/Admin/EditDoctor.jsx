@@ -4,6 +4,7 @@ import AdminNav from "./AdminNav";
 import axios from "axios";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import {FaUserMd,FaArrowLeft,FaSave,FaHospital,FaRupeeSign,FaClock,FaCamera,} from "react-icons/fa";
+import API from "../../api/axiosConfig";
 
 const ALL_DAYS = [
   "Sunday",
@@ -63,7 +64,9 @@ function EditDoctor() {
     try {
       setLoading(true);
       setErrorMsg("");
-      const res = await axios.get(`http://localhost:5000/api/admin/doctorinfo/${doctorid}`);
+      // const res = await axios.get(`http://localhost:5000/api/admin/doctorinfo/${doctorid}`);
+      const res = await API.get(`/api/admin/doctorinfo/${doctorid}`);
+    
       console.log("Doctor data for edit:", res.data);
       const doc = res.data?.result;
 
@@ -154,8 +157,8 @@ function EditDoctor() {
         formData.append("password", password.trim());
       }
 
-      const res = await axios.put(
-        `http://localhost:5000/api/admin/updateDoctor/${doctorid}`,
+      // const res = await axios.put(`http://localhost:5000/api/admin/updateDoctor/${doctorid}`,
+      const res = await API.put(`/api/admin/updateDoctor/${doctorid}`,
         formData,
         {
           headers: { "Content-Type": "multipart/form-data" },
@@ -215,9 +218,12 @@ function EditDoctor() {
                     <Image
                       src={
                         previewUrl ||
+                        // (oldImage
+                        //   ? `http://localhost:5000/uploads/${oldImage}`
+                        //   : "https://via.placeholder.com/130")
                         (oldImage
-                          ? `http://localhost:5000/uploads/${oldImage}`
-                          : "https://via.placeholder.com/130")
+                             ? `${API.defaults.baseURL}/uploads/${oldImage}`
+                             : "https://via.placeholder.com/130")
                       }
                       roundedCircle
                       width="120"

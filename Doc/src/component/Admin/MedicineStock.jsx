@@ -3,6 +3,7 @@ import {Container,Row,Col,Card,Table,Form,Button,Badge,Modal,Nav,Dropdown,} from
 import AdminNav from "./AdminNav";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import API from "../../api/axiosConfig";
 
 function MedicineStock() {
   const navigate = useNavigate();
@@ -29,7 +30,8 @@ function MedicineStock() {
 
   const fetchMedicines = async () => {
     try {
-      const result = await axios.get("http://localhost:5000/api/medicine/get");
+      // const result = await axios.get("http://localhost:5000/api/medicine/get");
+      const result = await API.get("/api/medicine/get");
       setMedicines(result.data.medicines || []);
     } 
     catch (error) {
@@ -39,7 +41,8 @@ function MedicineStock() {
 
   const fetchOrders = async () => {
     try {
-      const result = await axios.get("http://localhost:5000/api/medicine/orders");
+      // const result = await axios.get("http://localhost:5000/api/medicine/orders");
+      const result = await API.get("/api/medicine/orders");
       setOrders(result.data.orders || []);
     } catch (error) {
       console.log("Error fetching orders:", error);
@@ -100,7 +103,8 @@ function MedicineStock() {
         formData.append("image", newImage);
       }
 
-      const result = await axios.put(`http://localhost:5000/api/medicine/update/${editMedicineData._id}`,
+      // const result = await axios.put(`http://localhost:5000/api/medicine/update/${editMedicineData._id}`,
+      const result = await API.put(`/api/medicine/update/${editMedicineData._id}`,
         formData,{ headers: { "Content-Type": "multipart/form-data" } });
 
       alert(result.data.message || "Medicine updated successfully");
@@ -115,7 +119,8 @@ function MedicineStock() {
   const handleDeleteMedicine = async (id) => {
     if (window.confirm("Are you sure you want to delete this medicine?")) {
       try {
-        const result = await axios.delete(`http://localhost:5000/api/medicine/delete/${id}`);
+        // const result = await axios.delete(`http://localhost:5000/api/medicine/delete/${id}`);
+         const result = await API.delete(`/api/medicine/delete/${id}`);
         alert(result.data.message || "Medicine deleted successfully");
         fetchMedicines();
       } catch (error) {
@@ -127,7 +132,8 @@ function MedicineStock() {
 
   const handleUpdateOrderStatus = async (orderId, newStatus) => {
     try {
-      const result = await axios.put(`http://localhost:5000/api/medicine/update-order-status/${orderId}`,{ status: newStatus });
+      // const result = await axios.put(`http://localhost:5000/api/medicine/update-order-status/${orderId}`,{ status: newStatus });
+      const result = await API.put(`/api/medicine/update-order-status/${orderId}`,{ status: newStatus });
       alert(result.data.message || `Order status updated to ${newStatus}`);
       fetchOrders();
     } catch (error) {
@@ -285,7 +291,7 @@ function MedicineStock() {
                             <td>{index + 1}</td>
                             <td>
                               <img
-                                src={`http://localhost:5000/uploads/${item.image}`}
+                                src={`${API.defaults.baseURL}/uploads/${item.image}`}
                                 alt={item.name}
                                 style={{
                                   width: "50px",
@@ -409,7 +415,7 @@ function MedicineStock() {
                               <td className="text-start">
                                 {item.prescription ? (
                                   <a
-                                    href={`http://localhost:5000/api/medicine/prescription/${item._id}`}
+                                    href={`${API.defaults.baseURL}/api/medicine/prescription/${item._id}`}
                                     target="_blank"
                                     rel="noreferrer"
                                     className="btn btn-sm btn-outline-primary fw-bold"
@@ -420,7 +426,7 @@ function MedicineStock() {
                                 ) : (
                                   <div className="d-flex align-items-center gap-2">
                                     <img
-                                      src={`http://localhost:5000/uploads/${item.image}`}
+                                      src={`${API.defaults.baseURL}/uploads/${item.image}`}
                                       alt={item.medicineName}
                                       style={{
                                         width: "40px",

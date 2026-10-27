@@ -5,6 +5,7 @@ import axios from "axios";
 import defaultDoctorImg from "/src/assets/doc1.jpg";
 import companionImg from "/src/assets/companion.jpg";
 import UserNav from "./UserNav";
+import API from "../../api/axiosConfig";
 
 function MyAppointment() {
   const [appointments, setAppointments] = useState([]);
@@ -22,7 +23,8 @@ function MyAppointment() {
 
     try {
       setLoading(true);
-      const res = await axios.get( `http://localhost:5000/api/book/user/${userId}`);
+      // const res = await axios.get( `http://localhost:5000/api/book/user/${userId}`);
+      const res = await API.get( `/api/book/user/${userId}`);
       setAppointments(res.data.appointments || []);
     } 
     catch (err) {
@@ -42,7 +44,8 @@ function MyAppointment() {
     }
 
     try {
-      await axios.put(`http://localhost:5000/api/appointments/status/${id}`, {
+      // await axios.put(`http://localhost:5000/api/appointments/status/${id}`, {
+      await API.put(`/api/appointments/status/${id}`, {
         status: "Cancelled"
       });
       setAlertInfo({
@@ -156,7 +159,8 @@ function MyAppointment() {
                         <img
                           src={
                             appt.doctorId?.image
-                              ? `http://localhost:5000/uploads/${appt.doctorId.image}`
+                              // ? `http://localhost:5000/uploads/${appt.doctorId.image}`
+                              ? `${API.defaults.baseURL}/uploads/${appt.doctorId.image}`
                               : defaultDoctorImg
                           }
                           alt="Doctor"

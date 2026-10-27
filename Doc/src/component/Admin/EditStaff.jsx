@@ -3,6 +3,7 @@ import {Button,Card,Col,Container,Form,Row,Image} from "react-bootstrap";
 import AdminNav from "./AdminNav";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
+import API from "../../api/axiosConfig";
 
 function EditStaff() {
 
@@ -25,7 +26,8 @@ function EditStaff() {
 
     try {
 
-      const result = await axios.get(`http://localhost:5000/api/staff/staffinfo/${staffid}`);
+      // const result = await axios.get(`http://localhost:5000/api/staff/staffinfo/${staffid}`);
+      const result = await API.get(`/api/staff/staffinfo/${staffid}`);
 
       console.log("Staff:", result.data);
 
@@ -76,7 +78,8 @@ function EditStaff() {
 
       }
 
-      const result = await axios.put(`http://localhost:5000/api/staff/updateStaff/${staffid}`,formData);
+      // const result = await axios.put(`http://localhost:5000/api/staff/updateStaff/${staffid}`,formData);
+      const result = await API.put(`/api/staff/updateStaff/${staffid}`,formData);
 
       alert(result.data.message);
 
@@ -255,7 +258,8 @@ function EditStaff() {
                 {oldImage && (
 
                   <Image
-                    src={`http://localhost:5000/uploads/${oldImage}`}
+                    // src={`http://localhost:5000/uploads/${oldImage}`}
+                    src={`${API.defaults.baseURL}/uploads/${oldImage}`}
                     width="100"
                     height="100"
                     rounded

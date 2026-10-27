@@ -1,16 +1,9 @@
 
 import axios from "axios";
 import React, { useState } from "react";
-import {
-  Button,
-  Card,
-  Col,
-  Container,
-  Form,
-  Row,
-  InputGroup,
-} from "react-bootstrap";
+import {Button,Card,Col,Container,Form,Row,InputGroup,} from "react-bootstrap";
 import AdminNav from "./AdminNav";
+import API from "../../api/axiosConfig";
 
 function RegisterDoctor() {
   const [image, setImage] = useState(null);
@@ -95,8 +88,9 @@ function RegisterDoctor() {
       formData.append("password", password);
       formData.append("confrmPassword", confrmPassword);
 
-      const result = await axios.post(
-        "http://localhost:5000/api/admin/RegDocs",
+      // const result = await axios.post("http://localhost:5000/api/admin/RegDocs",
+      
+      const result = await API.post("/api/admin/RegDocs",
         formData,
         {
           headers: {

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Badge, Button, Card, Col, Container, Form, InputGroup, Modal, Nav, Row, Table, } from "react-bootstrap";
 import axios from "axios";
 import UserNav from "./UserNav";
+import API from "../../api/axiosConfig";
 
 
 function UserMedicine() {
@@ -85,7 +86,8 @@ function UserMedicine() {
 
   const getImage = (image) => {
     if (image) {
-      return `http://localhost:5000/uploads/${image}`;
+      // return `http://localhost:5000/uploads/${image}`;
+      return `${API.defaults.baseURL}/uploads/${image}`;
     }
 
   };
@@ -135,7 +137,8 @@ function UserMedicine() {
     }
 
     try {
-      await axios.post(`http://localhost:5000/api/medicine/order`, {
+      // await axios.post(`http://localhost:5000/api/medicine/order`, {
+      await API.post(`/api/medicine/order`, {
         userId: userId,
         medicineId: selected._id,
         quantity: Number(quantity),
@@ -191,8 +194,7 @@ function UserMedicine() {
       formData.append("userId", userId);
       formData.append("prescription", prescriptionFile);
 
-      await axios.post(
-        "http://localhost:5000/api/medicine/prescriptionorder",
+      await API.post("/api/medicine/prescriptionorder",
         formData
       );
 

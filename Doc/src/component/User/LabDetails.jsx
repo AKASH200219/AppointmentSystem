@@ -29,6 +29,7 @@ import {
   FaUserNurse,
 } from "react-icons/fa";
 import axios from "axios";
+import API from "../../api/axiosConfig";
 
 function LabDetails() {
   const { labId } = useParams();
@@ -48,7 +49,8 @@ function LabDetails() {
   const fetchLabDetails = async () => {
     try {
       setLoading(true);
-      const res = await axios.get(`http://localhost:5000/api/lab/labs/${labId}`);
+      // const res = await axios.get(`http://localhost:5000/api/lab/labs/${labId}`);
+      const res = await API.get(`/api/lab/labs/${labId}`);
       if (res.data?.success) {
         setLab(res.data.result.lab);
         setTests(res.data.result.tests || []);
@@ -155,7 +157,8 @@ function LabDetails() {
                   <div className="d-flex align-items-center gap-3 mb-3">
                     {lab.image && (
                       <img
-                        src={`http://localhost:5000/uploads/${lab.image}`}
+                        // src={`http://localhost:5000/uploads/${lab.image}`}
+                        src={`${API.defaults.baseURL}/uploads/${lab.image}`}
                         alt={lab.name}
                         width="80"
                         height="80"
@@ -242,7 +245,8 @@ function LabDetails() {
                       <div className="d-flex align-items-center gap-3">
                         {member.image ? (
                           <img
-                            src={`http://localhost:5000/uploads/${member.image}`}
+                            // src={`http://localhost:5000/uploads/${member.image}`}
+                          src={`${API.defaults.baseURL}/uploads/${member.image}`}
                             alt={member.name}
                             width="52"
                             height="52"

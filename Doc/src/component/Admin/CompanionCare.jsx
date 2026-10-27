@@ -4,6 +4,7 @@ import AdminNav from "./AdminNav";
 import axios from "axios";
 import socket from "../../socket";
 import LiveMovingMap from "../Common/LiveMovingMap";
+import API from "../../api/axiosConfig";
 
 function CompanionCare() {
   const [companions, setCompanions] = useState([]);
@@ -23,7 +24,8 @@ function CompanionCare() {
 
   const getCompanions = async () => {
     try {
-      const result = await axios.get("http://localhost:5000/api/companion/allDetails");
+      // const result = await axios.get("http://localhost:5000/api/companion/allDetails");
+      const result = await API.get("/api/companion/allDetails");
       console.log("Companion Requests:", result.data);
       setCompanions(result.data.companions || []);
     } catch (error) {
@@ -33,7 +35,8 @@ function CompanionCare() {
 
   const getCareAssistants = async () => {
     try {
-      const result = await axios.get("http://localhost:5000/api/staff/viewStaff");
+      // const result = await axios.get("http://localhost:5000/api/staff/viewStaff");
+      const result = await API.get("/api/staff/viewStaff");
       console.log("All staff :",result)
       const allStaff = result.data.result || [];
       const filtered = allStaff.filter(
@@ -62,7 +65,8 @@ function CompanionCare() {
 
   const updateStatus = async (id, newStatus) => {
     try {
-      await axios.put(`http://localhost:5000/api/companion/updateStatus/${id}`, { status: newStatus });
+      // await axios.put(`http://localhost:5000/api/companion/updateStatus/${id}`, { status: newStatus });
+      await API.put(`/api/companion/updateStatus/${id}`, { status: newStatus });
       getCompanions();
     } catch (error) {
       console.log("Status update failed", error);
@@ -109,7 +113,8 @@ function CompanionCare() {
     if (!selectedCompanion) return;
 
     try {
-      await axios.put(`http://localhost:5000/api/companion/assignCompanion/${selectedCompanion._id}`, {
+      // await axios.put(`http://localhost:5000/api/companion/assignCompanion/${selectedCompanion._id}`, {
+      await API.put(`/api/companion/assignCompanion/${selectedCompanion._id}`, {
         assignedCompanionName,
         assignedCompanionPhone,
         // assignedLocation,

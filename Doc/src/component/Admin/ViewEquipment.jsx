@@ -5,15 +5,15 @@ import {Button,Card,Container,Table,
 import AdminNav from "./AdminNav";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import API from "../../api/axiosConfig";
 
 function ViewEquipment() {
   const [equipment, setEquipment] = useState([]);
 
   const getEquipment = async () => {
     try {
-      const result = await axios.get(
-        "http://localhost:5000/api/equipment/get"
-      );
+      // const result = await axios.get("http://localhost:5000/api/equipment/get");
+      const result = await API.get("/api/equipment/get");
 
       setEquipment(result.data.equipment || []);
     } catch (error) {
@@ -33,7 +33,8 @@ function ViewEquipment() {
   const deleteEquipment = async (id) => {
     
     try {
-      const result = await axios.delete(`http://localhost:5000/api/equipment/deleteequip/${id}`);
+      // const result = await axios.delete(`http://localhost:5000/api/equipment/deleteequip/${id}`);
+      const result = await API.delete(`/api/equipment/deleteequip/${id}`);
 
       alert(
         result.data.message ||
@@ -127,7 +128,8 @@ function ViewEquipment() {
 
                         <td>
                           <img
-                            src={`http://localhost:5000/uploads/${item.image}`}
+                            // src={`http://localhost:5000/uploads/${item.image}`}
+                            src={`${API.defaults.baseURL}/uploads/${item.image}`}
                             alt={item.name}
                             style={{
                               width: "80px",

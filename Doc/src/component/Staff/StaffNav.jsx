@@ -11,6 +11,7 @@ import {
   FaUserNurse,
   FaFlask
 } from "react-icons/fa";
+import API from "../../api/axiosConfig";
 
 function StaffNav() {
   const [staffInfo, setStaffInfo] = useState(null);
@@ -27,14 +28,14 @@ function StaffNav() {
   useEffect(() => {
     if (!staffId) return;
 
-    axios
-      .get(`http://localhost:5000/api/staff/staffinfo/${staffId}`)
+    // axios.get(`http://localhost:5000/api/staff/staffinfo/${staffId}`)
+    API.get(`/api/staff/staffinfo/${staffId}`)
       .then((res) => {
         if (res.data?.result) {
           setStaffInfo(res.data.result);
         } else {
-          axios
-            .get("http://localhost:5000/api/staff/viewStaff")
+          // axios.get("http://localhost:5000/api/staff/viewStaff")
+          API.get("/api/staff/viewStaff")
             .then((listRes) => {
               const found = listRes.data?.result?.find(
                 (staff) => staff.commonKey === staffId || staff._id === staffId
@@ -45,8 +46,7 @@ function StaffNav() {
         }
       })
       .catch(() => {
-        axios
-          .get("http://localhost:5000/api/staff/viewStaff")
+        API.get("/api/staff/viewStaff")
           .then((listRes) => {
             const found = listRes.data?.result?.find(
               (staff) => staff.commonKey === staffId || staff._id === staffId

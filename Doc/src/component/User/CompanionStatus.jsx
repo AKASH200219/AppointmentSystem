@@ -14,6 +14,7 @@ import {
 import axios from "axios";
 import UserNav from "./UserNav";
 import LiveMovingMap from "../Common/LiveMovingMap";
+import API from "../../api/axiosConfig";
 
 function CompanionStatus() {
   const [companion, setCompanion] = useState([]);
@@ -25,9 +26,8 @@ function CompanionStatus() {
   // Get companion details from backend
   const getCompanion = async () => {
     try {
-      const result = await axios.get(
-        `http://localhost:5000/api/companion/companionStatus/${userId}`
-      );
+      // const result = await axios.get(`http://localhost:5000/api/companion/companionStatus/${userId}`);
+      const result = await API.get(`/api/companion/companionStatus/${userId}`);
 
       const list = result.data.Companionresult || [];
       setCompanion(list);

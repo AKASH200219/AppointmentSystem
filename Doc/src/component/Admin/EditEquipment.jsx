@@ -3,6 +3,7 @@ import {Button,Card,Col,Container,Form,Row,} from "react-bootstrap";
 import AdminNav from "./AdminNav";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
+import API from "../../api/axiosConfig";
 
 function EditEquipment() {
   const { id } = useParams();
@@ -25,7 +26,8 @@ function EditEquipment() {
 
   const getEquipment = async () => {
     try {
-      const result = await axios.get(`http://localhost:5000/api/equipment/getequip/${id}`);
+      // const result = await axios.get(`http://localhost:5000/api/equipment/getequip/${id}`);
+      const result = await API.get(`/api/equipment/getequip/${id}`);
 
       console.log("Equipment Data:",result.data);
 
@@ -71,7 +73,8 @@ function EditEquipment() {
       formData.append("image", image);
     }
 
-    const result = await axios.put(`http://localhost:5000/api/equipment/update/${id}`,
+    // const result = await axios.put(`http://localhost:5000/api/equipment/update/${id}`,
+    const result = await API.put(`/api/equipment/update/${id}`,
       formData,{headers: {"Content-Type": "multipart/form-data",},});
 
     alert(result.data.message || "Equipment updated successfully");
@@ -126,7 +129,8 @@ function EditEquipment() {
                     
                       <div className="mb-3">
 
-                        <img src={`http://localhost:5000/uploads/${oldImage}`}
+                        {/* <img src={`http://localhost:5000/uploads/${oldImage}`} */}
+                        <img src={`${API.defaults.baseURL}/uploads/${oldImage}`}
                           alt="Equipment"
                           style={{
                             width: "150px",

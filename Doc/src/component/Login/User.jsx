@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Button, Card, Col, Container, Form, Row } from "react-bootstrap";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import API from "../../api/axiosConfig";
 function User() {
   const [image, setImage] = useState(null);
   const [name, setName] = useState(" ");
@@ -27,9 +28,15 @@ function User() {
       formData.append("password", password);
       formData.append("confirmpsw", confirmpsw)
 
-      const result = axios.post("http://localhost:5000/api/user/userreg", formData, {
+      // const result = axios.post("http://localhost:5000/api/user/userreg", formData, {
+      //   headers: { 'Content-Type': 'multipart/form-data' }
+      // })
+
+       const result = await API.post("/api/user/userreg", formData, {
         headers: { 'Content-Type': 'multipart/form-data' }
       })
+      
+
       if (password !== confirmpsw) {
         alert("Password and Confirm Password do not match");
         return;

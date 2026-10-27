@@ -10,6 +10,7 @@ import {
 import axios from "axios";
 import { Link, useParams } from "react-router-dom";
 import DoctorNav from "./DoctorNav";
+import API from "../../api/axiosConfig";
 
 function ViewPrescription() {
   const { appointmentId } = useParams();
@@ -24,9 +25,9 @@ function ViewPrescription() {
         setLoading(true);
         setError("");
 
-        const result = await axios.get(
-          `http://localhost:5000/api/prescriptions/appointment/${appointmentId}`
-        );
+        // const result = await axios.get(`http://localhost:5000/api/prescriptions/appointment/${appointmentId}`);
+        const result = await API.get(`/api/prescriptions/appointment/${appointmentId}`);
+
 
         setPrescriptions(result.data.prescriptions || []);
       } catch (error) {

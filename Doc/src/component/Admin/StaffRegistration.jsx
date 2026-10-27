@@ -1,15 +1,9 @@
 
 import React, { useState } from "react";
-import {
-  Button,
-  Card,
-  Col,
-  Container,
-  Form,
-  Row,
-} from "react-bootstrap";
+import {Button,Card,Col,Container,Form,Row,} from "react-bootstrap";
 import axios from "axios";
 import AdminNav from "./AdminNav";
+import API from "../../api/axiosConfig";
 
 function StaffRegister() {
   const [name, setName] = useState("");
@@ -60,10 +54,8 @@ function StaffRegister() {
       formData.append("confirmpsw", confirmpsw);
       formData.append("image", image);
 
-      const result = await axios.post(
-        "http://localhost:5000/api/staff/registeStaff",
-        formData
-      );
+      // const result = await axios.post("http://localhost:5000/api/staff/registeStaff",formData);
+      const result = await API.post("/api/staff/registeStaff",formData);
 
       alert(result.data.message || "Staff registered successfully");
 

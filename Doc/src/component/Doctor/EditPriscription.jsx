@@ -1,18 +1,9 @@
-
 import React, { useEffect, useState } from "react";
-import {
-  Alert,
-  Button,
-  Card,
-  Col,
-  Container,
-  Form,
-  Row,
-  Table,
-} from "react-bootstrap";
+import {Alert,Button,Card,Col,Container,Form,Row,Table,} from "react-bootstrap";
 import { useNavigate, useParams, useLocation } from "react-router-dom";
 import axios from "axios";
 import DoctorNav from "./DoctorNav";
+import API from "../../api/axiosConfig";
 
 function EditPriscription() {
   const { appointmentId } = useParams();
@@ -41,9 +32,8 @@ function EditPriscription() {
       setLoading(true);
       setError("");
 
-      const result = await axios.get(
-        `http://localhost:5000/api/prescriptions/appointment/${appointmentId}`
-      );
+      // const result = await axios.get(`http://localhost:5000/api/prescriptions/appointment/${appointmentId}` );
+       const result = await API.get(`/api/prescriptions/appointment/${appointmentId}` );
 
       setMedicines(result.data.prescriptions || []);
 
@@ -89,8 +79,8 @@ function EditPriscription() {
 
     try {
       if (isEditing) {
-        await axios.put(
-          `http://localhost:5000/api/prescriptions/update/${editingId}`,
+        // await axios.put(`http://localhost:5000/api/prescriptions/update/${editingId}`,
+        await API.put(`/api/prescriptions/update/${editingId}`,
           {
             medicine: medicine.trim(),
             dosage: dosage.trim(),
@@ -118,8 +108,8 @@ function EditPriscription() {
           return;
         }
 
-        await axios.post(
-          "http://localhost:5000/api/prescriptions/add",
+        // await axios.post("http://localhost:5000/api/prescriptions/add",
+         await API.post("/api/prescriptions/add",
           {
             appointmentId,
             patientId,
@@ -168,9 +158,8 @@ function EditPriscription() {
     try {
       setError("");
 
-      await axios.delete(
-        `http://localhost:5000/api/prescriptions/delete/${id}`
-      );
+      // await axios.delete(`http://localhost:5000/api/prescriptions/delete/${id}`);
+      await API.delete(`/api/prescriptions/delete/${id}`);
 
       setMedicines((previous) =>
         previous.filter((item) => item._id !== id)

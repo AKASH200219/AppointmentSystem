@@ -1,16 +1,17 @@
-
 import React, { useEffect, useState } from "react";
 import {Button,Card,Container,Table,Badge,} from "react-bootstrap";
 import AdminNav from "./AdminNav";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import API from "../../api/axiosConfig";
 
 function ViewbookEquipment() {
   const [bookings, setBookings] = useState([]);
 
   const getBookings = async () => {
     try {
-      const result = await axios.get("http://localhost:5000/api/equipment/getBookings");
+      // const result = await axios.get("http://localhost:5000/api/equipment/getBookings");
+      const result = await API.get("/api/equipment/getBookings");
 
       console.log("Equipment bookings:", result.data);
 
@@ -28,13 +29,8 @@ function ViewbookEquipment() {
 
   const updateStatus = async (id, status) => {
     try {
-      const result = await axios.put(
-        `http://localhost:5000/api/equipment/updateStatus/${id}`,
-        {
-          status: status,
-        }
-      );
-
+      // const result = await axios.put(`http://localhost:5000/api/equipment/updateStatus/${id}`,{status: status,});
+      const result = await API.put(`/api/equipment/updateStatus/${id}`,{status: status,});
       alert(
         result.data.message ||
           `Booking ${status}`
@@ -143,7 +139,8 @@ function ViewbookEquipment() {
                         <td>
 
                           <img
-                            src={`http://localhost:5000/uploads/${item.image}`}
+                            // src={`http://localhost:5000/uploads/${item.image}`}
+                            src={`${API.defaults.baseURL}/uploads/${item.image}`}
                             alt={item.image}
                             style={{
                               width: "80px",
@@ -233,7 +230,6 @@ function ViewbookEquipment() {
                               Accept
                             </Button>
 
-                            
                             <Button
                               variant="danger"
                               size="sm"

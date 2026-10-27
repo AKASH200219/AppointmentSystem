@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import {Button,Card,Col,Container,Form,Row,} from "react-bootstrap";
 import AdminNav from "./AdminNav";
 import axios from "axios";
+import API from "../../api/axiosConfig";
 
 function EquipmentRental() {
 
@@ -27,7 +28,8 @@ function EquipmentRental() {
       formData.append("quantity", quantity);
       formData.append("information",information);
 
-      const result = await axios.post( "http://localhost:5000/api/equipment/add",formData,
+      // const result = await axios.post( "http://localhost:5000/api/equipment/add",formData,
+       const result = await API.post( "/api/equipment/add",formData,
         {headers: {"Content-Type":"multipart/form-data", }, });
 
       alert(result.data.message);

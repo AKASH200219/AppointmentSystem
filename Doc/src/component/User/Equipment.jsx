@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import {Card,Col,Container,Row,Button,Modal,Form,Badge,} from "react-bootstrap";
 import axios from "axios";
 import UserNav from "./UserNav";
+import API from "../../api/axiosConfig";
 
 function Equipment() {
   const [equipment, setEquipment] = useState([]);
@@ -14,7 +15,8 @@ function Equipment() {
 
   const getEquipment = async () => {
     try {
-      const result = await axios.get("http://localhost:5000/api/equipment/get");
+      // const result = await axios.get("http://localhost:5000/api/equipment/get");
+      const result = await API.get("/api/equipment/get");
       console.log("get equipment:", result);
 
       setEquipment(result.data.equipment || []);
@@ -77,7 +79,8 @@ function Equipment() {
 
       console.log("Booking body:", body);
 
-      const result = await axios.post(`http://localhost:5000/api/equipment/bookingEquipment/${selectedEquipment._id}`,body);
+      // const result = await axios.post(`http://localhost:5000/api/equipment/bookingEquipment/${selectedEquipment._id}`,body);
+      const result = await API.post(`/api/equipment/bookingEquipment/${selectedEquipment._id}`,body);
 
       console.log("Booking response:", result.data);
 
@@ -137,7 +140,8 @@ function Equipment() {
 
                   <Card.Img
                     variant="top"
-                    src={`http://localhost:5000/uploads/${item.image}`}
+                    // src={`http://localhost:5000/uploads/${item.image}`}
+                    src={`${API.defaults.baseURL}/uploads/${item.image}`}
                     alt={item.name}
                     style={{
                       height: "210px",
@@ -259,7 +263,8 @@ function Equipment() {
               <div className="d-flex gap-3 mb-4">
 
                 <img
-                  src={`http://localhost:5000/uploads/${selectedEquipment.image}`}
+                  // src={`http://localhost:5000/uploads/${selectedEquipment.image}`}
+                  src={`${API.defaults.baseURL}/uploads/${selectedEquipment.image}`}
                   alt={selectedEquipment.name}
                   style={{
                     width: "100px",

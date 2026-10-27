@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import {Container,Row,Col,Card,Table,Badge,Form,Button,Dropdown,InputGroup,} from "react-bootstrap";
 import axios from "axios";
 import StaffNav from "../StaffNav";
+import API from "../../../api/axiosConfig";
 
 function StaffMedicineOrders() {
   const [orders, setOrders] = useState([]);
@@ -14,7 +15,8 @@ function StaffMedicineOrders() {
 
   const fetchOrders = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/medicine/orders");
+      // const res = await axios.get("http://localhost:5000/api/medicine/orders");
+      const res = await API.get("/api/medicine/orders");
       console.log("get Orders:",res);
       
       setOrders(res.data.orders || []);
@@ -26,13 +28,15 @@ function StaffMedicineOrders() {
   const fetchStaffDetails = async () => {
     if (!staffId) return;
     try {
-      const res = await axios.get(`http://localhost:5000/api/staff/staffinfo/${staffId}`);
+      // const res = await axios.get(`http://localhost:5000/api/staff/staffinfo/${staffId}`);
+      const res = await API.get(`/api/staff/staffinfo/${staffId}`);
       if (res.data?.result) {
         setStaffInfo(res.data.result);
       }
     } catch (e) {
       try {
-        const listRes = await axios.get("http://localhost:5000/api/staff/viewStaff");
+        // const listRes = await axios.get("http://localhost:5000/api/staff/viewStaff");
+        const listRes = await API.get("/api/staff/viewStaff");
         const found = listRes.data?.result?.find(
           (s) => s.commonKey === staffId || s._id === staffId
         );
@@ -56,10 +60,9 @@ function StaffMedicineOrders() {
       return;
     }
     try {
-      const res = await axios.put(
-        `http://localhost:5000/api/medicine/update-order-status/${orderId}`,
-        { status: newStatus }
-      );
+      // const res = await axios.put(`http://localhost:5000/api/medicine/update-order-status/${orderId}`,{ status: newStatus });
+      const res = await API.put(`/api/medicine/update-order-status/${orderId}`,{ status: newStatus });
+
       alert(res.data.message || `Order status updated to ${newStatus}`);
       fetchOrders();
     } catch (err) {
@@ -95,8 +98,8 @@ function StaffMedicineOrders() {
 
  const getPrescriptionFile = async (orderId) => {
   try {
-    const res = await axios.get(
-      `http://localhost:5000/api/medicine/prescription/${orderId}`,
+    // const res = await axios.get(`http://localhost:5000/api/medicine/prescription/${orderId}`,
+    const res = await API.get(`/api/medicine/prescription/${orderId}`,
       {
         responseType: "blob",
       }
@@ -330,7 +333,8 @@ function StaffMedicineOrders() {
                             <td className="text-start">
                               <div className="d-flex align-items-center gap-2">
                                 <img
-                                  src={`http://localhost:5000/uploads/${item.image}`}
+                                  // src={`http://localhost:5000/uploads/${item.image}`}
+                                  src={`${API.defaults.baseURL}/uploads/${item.image}`}
                                   alt={item.medicineName}
                                   style={{
                                     width: "42px",

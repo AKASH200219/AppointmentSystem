@@ -22,6 +22,7 @@ import {
   FaInfoCircle,
 } from "react-icons/fa";
 import axios from "axios";
+import API from "../../api/axiosConfig";
 
 function LabTests() {
   const [tests, setTests] = useState([]);
@@ -37,7 +38,8 @@ function LabTests() {
   const fetchTests = async () => {
     try {
       setLoading(true);
-      const res = await axios.get("http://localhost:5000/api/lab/tests");
+      // const res = await axios.get("http://localhost:5000/api/lab/tests");
+      const res = await API.get("/api/lab/tests");
       if (res.data?.success) {
         setTests(res.data.result || []);
       }

@@ -3,6 +3,7 @@ import {Badge,Button,Card,Container,Table,Alert,Form,Spinner,} from "react-boots
 import axios from "axios";
 import DoctorNav from "./DoctorNav";
 import { Link } from "react-router-dom";
+import API from "../../api/axiosConfig";
 
 function DocAppointments() {
   const [appointments, setAppointments] = useState([]);
@@ -35,7 +36,8 @@ function DocAppointments() {
 
     try {
       setError("");
-      const result = await axios.get(`http://localhost:5000/api/appointments/getappointment/${doctorid}`,
+      // const result = await axios.get(`http://localhost:5000/api/appointments/getappointment/${doctorid}`,
+      const result = await API.get(`/api/appointments/getappointment/${doctorid}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -56,8 +58,8 @@ function DocAppointments() {
           .filter((item) => item.status === "Accepted")
           .map(async (item) => {
             try {
-              const response = await axios.get(
-                `http://localhost:5000/api/prescriptions/appointment/${item._id}`,
+              // const response = await axios.get(`http://localhost:5000/api/prescriptions/appointment/${item._id}`,
+              const response = await API.get(`/api/prescriptions/appointment/${item._id}`,
                 {
                   headers: {
                     Authorization: `Bearer ${token}`,
@@ -190,8 +192,8 @@ function DocAppointments() {
       setSuccess("");
       setUpdatingId(id);
 
-      await axios.put(
-        `http://localhost:5000/api/appointments/status/${id}`,
+      // await axios.put(`http://localhost:5000/api/appointments/status/${id}`,
+      await API.put(`/api/appointments/status/${id}`,
         { status },
         {
           headers: {

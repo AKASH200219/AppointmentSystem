@@ -3,6 +3,7 @@ import { Container, Row, Col, Card, Form, Button } from "react-bootstrap";
 import AdminNav from "./AdminNav";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import API from "../../api/axiosConfig";
 
 function MedicineAdd() {
   const navigate = useNavigate();
@@ -45,7 +46,8 @@ function MedicineAdd() {
       formData.append("expiryDate", expiry);
       formData.append("description", discription);
 
-      const result = await axios.post("http://localhost:5000/api/medicine/add", formData, {
+      // const result = await axios.post("http://localhost:5000/api/medicine/add", formData, {
+      const result = await API.post("/api/medicine/add", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
 

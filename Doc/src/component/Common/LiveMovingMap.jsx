@@ -1,18 +1,16 @@
 
 import { useEffect, useState } from "react";
-import {
-  MapContainer,
-  TileLayer,
-  Marker,
-  Polyline,
-  Popup,
-  useMap
+import {MapContainer,TileLayer,Marker,Polyline,Popup,useMap
 } from "react-leaflet";
 import { io } from "socket.io-client";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
+import API from "../../api/axiosConfig";
 
-const socket = io("http://localhost:5000", {
+// const socket = io("http://localhost:5000", {
+//   autoConnect: false
+// });
+const socket = io(API.defaults.baseURL, {
   autoConnect: false
 });
 

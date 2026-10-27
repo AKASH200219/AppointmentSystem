@@ -3,12 +3,14 @@ import { Button, Card, Col, Container, Row } from "react-bootstrap";
 import UserNav from "./UserNav";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import API from "../../api/axiosConfig";
 function DoctorPage() {
  const [doctorinfo,setDoctorinfo]=useState([]);
 
   const Doctorinfo = async()=>{
     try{
-      const result = await axios.get("http://localhost:5000/api/doctorpage/doctorinfo")
+      // const result = await axios.get("http://localhost:5000/api/doctorpage/doctorinfo")
+      const result = await API.get("/api/doctorpage/doctorinfo")
       console.log("Successfully get Doctorinfo",result);
       setDoctorinfo(result.data.doctorData);
       
@@ -44,7 +46,8 @@ function DoctorPage() {
 
           <Card.Img
           variant="top"
-         src={`http://localhost:5000/uploads/${doctor.image}`}
+        //  src={`http://localhost:5000/uploads/${doctor.image}`}
+        src={`${API.defaults.baseURL}/uploads/${doctor.image}`}
           style={{
          height: "250px",
           objectFit: "cover",

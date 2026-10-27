@@ -12,6 +12,7 @@ import {
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import StaffNav from "./StaffNav";
+import API from "../../api/axiosConfig";
 
 function Staffpage() {
 
@@ -33,9 +34,8 @@ function Staffpage() {
 
     try {
 
-      const res = await axios.get(
-        `http://localhost:5000/api/staff/staffinfo/${staffId}`
-      );
+      // const res = await axios.get(`http://localhost:5000/api/staff/staffinfo/${staffId}`);
+      const res = await API.get(`/api/staff/staffinfo/${staffId}`);
 
       console.log("Staff Info:", res.data);
 
@@ -60,9 +60,8 @@ function Staffpage() {
 
     try {
 
-      const listRes = await axios.get(
-        "http://localhost:5000/api/staff/viewStaff"
-      );
+      // const listRes = await axios.get("http://localhost:5000/api/staff/viewStaff");
+      const listRes = await API.get("/api/staff/viewStaff");
 
       const found = listRes.data?.result?.find(
         (staff) =>
@@ -112,9 +111,9 @@ function Staffpage() {
 
     try {
 
-      const res = await axios.get(
-        "http://localhost:5000/api/medicine/orders"
-      );
+      // const res = await axios.get("http://localhost:5000/api/medicine/orders");
+      const res = await API.get("/api/medicine/orders");
+
 
       console.log("Orders:", res.data);
 
@@ -353,7 +352,6 @@ function Staffpage() {
 
                   </h5>
 
-
                   <p className="text-muted">
 
                     View companion requests,
@@ -369,7 +367,6 @@ function Staffpage() {
                     Companion Requests
 
                   </h3>
-
 
                   <Button
                     variant="success"
@@ -489,7 +486,6 @@ function Staffpage() {
                   text="dark"
                   className="p-2 border"
                 >
-
                   Staff Role Active
 
                 </Badge>

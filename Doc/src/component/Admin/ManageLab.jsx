@@ -4,6 +4,7 @@ import AdminNav from "./AdminNav";
 import axios from "axios";
 import {FaFlask,FaPlus,FaEdit,FaTrash,FaSearch,FaMapMarkerAlt,FaClock,FaShieldAlt,FaPhoneAlt,FaEnvelope,FaLock,FaImage,FaEye,FaExternalLinkAlt,FaCheckCircle,FaTimesCircle,} from "react-icons/fa";
 import { Link } from "react-router-dom";
+import API from "../../api/axiosConfig";
 
 function ManageLab() {
   const [labs, setLabs] = useState([]);
@@ -69,7 +70,8 @@ function ManageLab() {
   const fetchLabs = async () => {
     try {
       setLoading(true);
-      const res = await axios.get("http://localhost:5000/api/lab/all-labs");
+      // const res = await axios.get("http://localhost:5000/api/lab/all-labs");
+      const res = await API.get("/api/lab/all-labs");
       if (res.data?.success) {
         setLabs(res.data.result || []);
       }
@@ -132,7 +134,8 @@ function ManageLab() {
         formData.append("image", addImageFile);
       }
 
-      const res = await axios.post("http://localhost:5000/api/lab/admin/add-lab", formData);
+      // const res = await axios.post("http://localhost:5000/api/lab/admin/add-lab", formData);
+      const res = await API.post("/api/lab/admin/add-lab", formData);
       if (res.data?.success) {
         showAlert("success", res.data.message || "Laboratory added successfully!");
         setShowAddModal(false);
@@ -184,7 +187,8 @@ function ManageLab() {
       existingImage: lab.image || "",
     });
     setEditImageFile(null);
-    setEditImagePreview(lab.image ? `http://localhost:5000/uploads/${lab.image}` : null);
+    // setEditImagePreview(lab.image ? `http://localhost:5000/uploads/${lab.image}` : null);
+    setEditImagePreview(lab.image ? `${API.defaults.baseURL}/uploads/${lab.image}` : null);
     setShowEditModal(true);
   };
 
@@ -225,11 +229,8 @@ function ManageLab() {
         formData.append("image", editImageFile);
       }
 
-      const res = await axios.put(
-        `http://localhost:5000/api/lab/admin/update-lab/${editLabId}`,
-        formData
-      );
-
+      // const res = await axios.put(`http://localhost:5000/api/lab/admin/update-lab/${editLabId}`,formData);
+      const res = await API.put(`/api/lab/admin/update-lab/${editLabId}`,formData);
       if (res.data?.success) {
         showAlert("success", res.data.message || "Laboratory updated successfully!");
         setShowEditModal(false);
@@ -251,9 +252,8 @@ function ManageLab() {
       )
     ) {
       try {
-        const res = await axios.delete(
-          `http://localhost:5000/api/lab/admin/delete-lab/${labId}`
-        );
+        // const res = await axios.delete(`http://localhost:5000/api/lab/admin/delete-lab/${labId}`);
+        const res = await API.delete(`/api/lab/admin/delete-lab/${labId}`);
         if (res.data?.success) {
           showAlert("success", res.data.message || "Laboratory deleted successfully");
           fetchLabs();
@@ -509,7 +509,8 @@ function ManageLab() {
                           <div className="d-flex align-items-center gap-3">
                             {lab.image ? (
                               <img
-                                src={`http://localhost:5000/uploads/${lab.image}`}
+                                // src={`http://localhost:5000/uploads/${lab.image}`}
+                                src={`${API.defaults.baseURL}/uploads/${lab.image}`}
                                 alt={lab.name}
                                 width="50"
                                 height="50"

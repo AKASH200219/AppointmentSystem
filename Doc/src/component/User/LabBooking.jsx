@@ -23,6 +23,7 @@ import {
   FaShieldAlt,
   FaArrowLeft,
 } from "react-icons/fa";
+import API from "../../api/axiosConfig";
 
 function LabBooking() {
   const location = useLocation();
@@ -60,15 +61,15 @@ function LabBooking() {
   useEffect(() => {
     // If user arrived directly without selecting a test or lab, fetch them
     if (!stateTest || !stateLab) {
-      axios
-        .get("http://localhost:5000/api/lab/all-labs")
+      // axios.get("http://localhost:5000/api/lab/all-labs")
+      API.get("/api/lab/all-labs")
         .then((res) => {
           if (res.data?.success) setAllLabs(res.data.result || []);
         })
         .catch((err) => console.log("Error fetching labs fallback:", err));
 
-      axios
-        .get("http://localhost:5000/api/lab/tests")
+      // axios.get("http://localhost:5000/api/lab/tests")
+       API.get("/api/lab/tests")
         .then((res) => {
           if (res.data?.success) setAllTests(res.data.result || []);
         })
@@ -146,7 +147,8 @@ function LabBooking() {
         formData.append("attachmentFile", attachmentFile);
       }
 
-      const res = await axios.post("http://localhost:5000/api/lab/book", formData, {
+      // const res = await axios.post("http://localhost:5000/api/lab/book", formData, {
+      const res = await API.post("/api/lab/book", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
 
