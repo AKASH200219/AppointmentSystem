@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "https://appointmentsystems.onrender.com"
+  baseURL: "https://docappsys-ztig.onrender.com"
 });
 
 export default API;
