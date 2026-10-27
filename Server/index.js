@@ -127,3 +127,18 @@ server.use("/api/lab", labRouter);
 // httpServer.listen(5000, () => {
 //   console.log("Server started on port 5000");
 // });
+mongoose
+
+  // .connect("mongodb://localhost:27017/DocAppointment")
+  .connect(process.env.MONGO_URI)
+  .then(() => {
+    console.log("Successfully connected to MongoDB");
+
+     httpServer.listen(process.env.PORT || 5000, () => {
+      console.log("Server started on port " + (process.env.PORT || 5000));
+    });
+  })
+  .catch((err) => {
+    console.log("Failed to connect to MongoDB", err);
+  });
+
